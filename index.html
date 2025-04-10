@@ -285,45 +285,94 @@
     </header>
 
     <div class="container fade-in">
-        <!-- 下载区域 -->
+
+        <!-- MASH核心表示方法 -->
         <div class="content-section">
-            <h2>Download [TODO]</h2>
-            <div class="result-content">
-                <a href="paper/2025_SIG_MASH.pdf">Paper</a> (~34M)<br>
-                <a href="paper/2025_SIG_MASH_suppl.pdf">Supplementary Material</a> (~21M)<br>
-                <a href="https://github.com/565353780/ma-sh">Code</a><br>
-                <a href="ppt/SIG25_MASH_Presentation.pdf">Slide PDF</a> (~6M)
+            <h2>MASH Representation</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px; max-width: 880px; margin-left: auto; margin-right: auto;">
+                <img src="./images/MASH_representation.png" width="100%" alt="MASH表示方法">
+                <p class="result-description" style="margin-top: 15px; color: #333; width: 100%;">
+                    MASH is a set of anchors. Each anchor observes objects along direction <strong><em>v</em></strong> from an spatial point <strong><em>p</em></strong>. It uses spherical harmonic coefficients <strong><em>C</em></strong> to encode distance information along different directions, while utilizing trigonometric basis function coefficients <strong><em>V</em></strong> to generate a view cone that constrains the representation range of the spherical distance functions, thereby accurately representing local surface geometry of the object.
+                </p>
             </div>
         </div>
 
-        <!-- 演示视频 -->
+        <!-- 技术视频展示 -->
         <div class="content-section">
-            <h2>Demo</h2>
-            <div class="video-container">
+            <h2>Technical Videos</h2>
+            
+            <!-- 视频1：表示方法 -->
+            <div class="video-container" style="margin-bottom: 30px;">
                 <div class="video-wrapper">
-                    <iframe width="560" height="315" 
-                        src="https://www.youtube.com/embed/QbqYIrmkoVo?si=xIQWj4oMH1Ke-LWP" 
-                        title="YouTube video player" 
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen>
-                    </iframe>
+                    <video width="100%" height="auto" controls>
+                        <source src="./video/1_representation.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div style="padding: 15px;">
+                    <p class="result-description">
+                        <strong>Video 1: Representation</strong> - This video explains the fundamental representation method of MASH (Masked Anchored SpHerical Distances), showing how 3D shapes are represented using a collection of observable local surface patches defined by spherical distance functions.
+                    </p>
                 </div>
             </div>
-        </div>
-
-        <!-- Fast Forward -->
-        <div class="content-section">
-            <h2>Fast Forward</h2>
-            <div class="video-container">
+            
+            <!-- 视频2：关键思想 -->
+            <div class="video-container" style="margin-bottom: 30px;">
                 <div class="video-wrapper">
-                    <iframe width="560" height="315" 
-                        src="https://www.youtube.com/embed/mBPpJnWnUEY?si=keTy4e6rJSzsmNEj" 
-                        title="YouTube video player" 
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen>
-                    </iframe>
+                    <video width="100%" height="auto" controls>
+                        <source src="./video/2_key_idea.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div style="padding: 15px;">
+                    <p class="result-description">
+                        <strong>Video 2: Key Idea</strong> - This video demonstrates the key ideas behind MASH, illustrating how the combination of spherical harmonics and parameterized view cones enables efficient and accurate 3D shape representation.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 视频3：锚点 -->
+            <div class="video-container" style="margin-bottom: 30px;">
+                <div class="video-wrapper">
+                    <video width="100%" height="auto" controls>
+                        <source src="./video/3_anchor.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div style="padding: 15px;">
+                    <p class="result-description">
+                        <strong>Video 3: Anchor Points</strong> - This video explains the role of anchor points in the MASH representation, showing how these fixed points in 3D space provide perspectives from which the shape's surface is observed and encoded.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 视频4：目标函数 -->
+            <div class="video-container" style="margin-bottom: 30px;">
+                <div class="video-wrapper">
+                    <video width="100%" height="auto" controls>
+                        <source src="./video/4_objective_function.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div style="padding: 15px;">
+                    <p class="result-description">
+                        <strong>Video 4: Objective Function</strong> - This video details the objective function used in MASH optimization, explaining how it guides the fitting process to accurately approximate ground-truth surfaces with arbitrary geometry and topology.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 视频5：可微分优化 -->
+            <div class="video-container" style="margin-bottom: 30px;">
+                <div class="video-wrapper">
+                    <video width="100%" height="auto" controls>
+                        <source src="./video/5_diff_opt.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div style="padding: 15px;">
+                    <p class="result-description">
+                        <strong>Video 5: Differentiable Optimization</strong> - This video showcases the differentiable optimization algorithm developed for MASH, demonstrating how it converts point clouds into accurate MASH representations through iterative refinement.
+                    </p>
                 </div>
             </div>
         </div>
