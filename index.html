@@ -120,16 +120,29 @@
         /* 结果图展示 */
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             margin-top: 30px;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        
         }
 
         .result-item {
-            background: white;
+            background: transparent;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -167,6 +180,15 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+        
+        .result-item {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .video-wrapper {
+            border-radius: 10px;
+        }
 
         .video-wrapper {
             position: relative;
@@ -174,6 +196,7 @@
             /* 16:9 比例 */
             height: 0;
             overflow: hidden;
+            background: transparent;
         }
 
         .video-wrapper iframe,
@@ -304,7 +327,7 @@
             <!-- 视频4：目标函数 -->
             <div class="video-container" style="margin-bottom: 30px;">
                 <div class="video-wrapper">
-                    <video width="100%" height="auto" controls>
+                    <video width="100%" height="auto" controls loop autoplay muted>
                         <source src="./video/4_objective_function.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -320,7 +343,7 @@
             <h2>Differentiable Optimization</h2>
             <div class="video-container" style="margin-bottom: 30px;">
                 <div class="video-wrapper">
-                    <video width="100%" height="auto" controls>
+                    <video width="100%" height="auto" controls loop autoplay muted>
                         <source src="./video/5_diff_opt.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -342,6 +365,53 @@
             <p class="result-description" style="margin-top: 15px; color: #333;">
                 MASH has no topological constraints and can effectively represent both the internal structures and thin structures of objects.
             </p>
+        </div>
+
+        <!-- 形状生成 -->
+        <div class="content-section">
+            <h2>Visualization of Shape Generation</h2>
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="video-wrapper" style="height: 180px;">
+                        <video width="100%" height="100%" controls loop autoplay muted>
+                            <source src="./video/Gen-MASH-shape-1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="result-content">
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="video-wrapper" style="height: 180px;">
+                        <video width="100%" height="100%" controls loop autoplay muted>
+                            <source src="./video/Gen-MASH-shape-2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="result-content">
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="video-wrapper" style="height: 180px;">
+                        <video width="100%" height="100%" controls loop autoplay muted>
+                            <source src="./video/Gen-MASH-shape-3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="result-content">
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="video-wrapper" style="height: 180px;">
+                        <video width="100%" height="100%" controls loop autoplay muted>
+                            <source src="./video/Gen-MASH-shape-4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="result-content">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 结果展示 -->
