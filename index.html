@@ -289,12 +289,12 @@
         <!-- MASH核心表示方法 -->
         <div class="content-section">
             <h2>MASH Representation</h2>
-            <div align="center" style="margin-top: 30px; margin-bottom: 30px; max-width: 880px; margin-left: auto; margin-right: auto;">
-                <img src="./images/MASH_representation.png" width="100%" alt="MASH表示方法">
-                <p class="result-description" style="margin-top: 15px; color: #333; width: 100%;">
-                    MASH is a set of anchors. Each anchor observes objects along direction <strong><em>v</em></strong> from an spatial point <strong><em>p</em></strong>. It uses spherical harmonic coefficients <strong><em>C</em></strong> to encode distance information along different directions, while utilizing trigonometric basis function coefficients <strong><em>V</em></strong> to generate a view cone that constrains the representation range of the spherical distance functions, thereby accurately representing local surface geometry of the object.
-                </p>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/MASH_representation.png" style="max-width: 880px; width: 100%;" alt="MASH表示方法">
             </div>
+            <p class="result-description" style="margin-top: 15px; color: #333;">
+                MASH is a set of anchors. Each anchor observes objects along direction <strong><em>v</em></strong> from an spatial point <strong><em>p</em></strong>. It uses spherical harmonic coefficients <strong><em>C</em></strong> to encode distance information along different directions, while utilizing trigonometric basis function coefficients <strong><em>V</em></strong> to generate a view cone that constrains the representation range of the spherical distance functions, thereby accurately representing local surface geometry of the object.
+            </p>
         </div>
 
         <!-- 技术视频展示 -->
@@ -331,6 +331,17 @@
                     </p>
                 </div>
             </div>
+        </div>
+
+        <!-- 内部结构 -->
+        <div class="content-section">
+            <h2>Inner Structure</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/inner_structure.png" style="max-width: 880px; width: 100%;" alt="MASH内部结构">
+            </div>
+            <p class="result-description" style="margin-top: 15px; color: #333;">
+                The inner structure of MASH reveals how the representation encodes 3D shape information through a network of anchor points. Each anchor point captures local geometry using spherical distance functions, while the masking mechanism ensures that only relevant surface regions are represented. This hierarchical organization allows MASH to efficiently model complex shapes with varying levels of detail, enabling accurate reconstruction and generation of 3D objects with diverse topologies.
+            </p>
         </div>
 
         <!-- 结果展示 -->
