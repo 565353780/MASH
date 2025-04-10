@@ -120,9 +120,35 @@
         /* 结果图展示 */
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-top: 30px;
+        }
+        
+        /* 多模态图片布局 */
+        .multi-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .single-image-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .multi-modal-grid .result-item {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        
+        .multi-modal-grid img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
         
         /* 响应式调整 */
@@ -153,8 +179,9 @@
 
         .result-image {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
         }
 
         .result-content {
@@ -277,9 +304,9 @@
             </div>
             <!-- 将 Figure 1 移到这里 -->
             <div align="center" style="margin-top: 30px; margin-bottom: 30px; max-width: 880px; margin-left: auto; margin-right: auto;">
-                <img src="./images/representative_image.jpg" width="100%" alt="Figure 1">
+                <img src="./images/representative_image.jpg" width="100%">
                 <p class="result-description" style="margin-top: 15px; color: #333; width: 100%;">
-                    <strong>Figure 1:</strong> MASH represents a 3D shape by fitting a set of Masked Anchored SpHerical distance
+                    MASH represents a 3D shape by fitting a set of Masked Anchored SpHerical distance
                     functions as observed from the perspective of a fixed number of anchor points in 3D space. Left shows an
                     iterative optimization of MASH parameters, from an unoriented point cloud, leading to closer and closer
                     approximations to the ground-truth shape surface. Middle and right show the versatility of MASH in enabling
@@ -367,6 +394,32 @@
             </p>
         </div>
 
+        <!-- 表面重建 -->
+        <div class="content-section">
+            <h2>Surface Reconstruction</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/recon_1.png" style="max-width: 880px; width: 100%;" alt="Surface Reconstruction 1">
+            </div>
+
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/recon_2.png" style="max-width: 880px; width: 100%;" alt="Surface Reconstruction 2">
+            </div>
+            <p class="result-description" style="margin-top: 15px; color: #333;">
+                Qualitative results on surface reconstruction with different methods.There are two details for each result to show the performance of all methods better.
+            </p>
+        </div>
+
+        <!-- 噪声点云重建 -->
+        <div class="content-section">
+            <h2>Surface Reconstruction with Noisy Point Cloud</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/noisy_recon.png" style="max-width: 880px; width: 100%;" alt="Noisy Point Cloud Reconstruction">
+            </div>
+            <p class="result-description" style="margin-top: 15px; color: #333;">
+                Reconstructions on the chair category with two different noise levels.
+            </p>
+        </div>
+
         <!-- 形状生成 -->
         <div class="content-section">
             <h2>Visualization of Shape Generation</h2>
@@ -414,67 +467,79 @@
             </div>
         </div>
 
-        <!-- 结果展示 -->
+        <!-- 类别条件形状生成 -->
         <div class="content-section">
-            <h2>Results</h2>
+            <h2>Category-conditioned Shape Generation</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/category_gen.png" style="width: 100%;" alt="Category-conditioned Shape Generation">
+            </div>
+            <p class="result-description" style="margin-top: 15px; color: #333;">
+                Qualitative results on category-conditioned generation compared with different methods.            </p>
+        </div>
+
+        <!-- 多模态形状生成 -->
+        <div class="content-section">
+            <h2>Multi-modal Shape Generation on ShapeNet-V2</h2>
             <div class="results-grid">
                 <div class="result-item">
-                    <img src="./images/eval-offline-compare-000001-v6.png" class="result-image" alt="Figure 2">
+                    <img src="./images/text_gen.png" class="result-image" alt="Text-conditioned Generation">
                     <div class="result-content">
                         <p class="result-description">
-                            <strong>Figure 2:</strong> Qualitative comparison with offline CAD recomposition baselines.
+                            Text-conditioned shape generation results.
                         </p>
                     </div>
                 </div>
                 <div class="result-item">
-                    <img src="./images/eval-online-compare-065300-v5.png" class="result-image" alt="Figure 3">
+                    <img src="./images/points_gen.png" class="result-image" alt="Point-cloud-conditioned Generation">
                     <div class="result-content">
                         <p class="result-description">
-                            <strong>Figure 3:</strong> Qualitative comparison with online CAD recomposition baselines.
+                            Point-cloud-conditioned shape generation results.
                         </p>
                     </div>
                 </div>
                 <div class="result-item">
-                    <img src="./images/eval-visual-result-v7.png" class="result-image" alt="Figure 4">
+                    <img src="./images/image_gen_1.png" class="result-image" alt="Image-conditioned Generation">
                     <div class="result-content">
                         <p class="result-description">
-                            <strong>Figure 4:</strong> Example results generated by our online scene CAD recomposition method.
+                            Image-conditioned shape generation results.
                         </p>
                     </div>
                 </div>
             </div>
+            
+            <h2>Single Image to 3D</h2>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/image_gen_2.png" style="max-width: 880px; width: 100%;" alt="Single Image to 3D">
+            </div>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/image_gen_3.png" style="max-width: 880px; width: 100%;" alt="Single Image to 3D">
+            </div>
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
+                <img src="./images/image_gen_4.png" style="max-width: 880px; width: 100%;" alt="Single Image to 3D">
+            </div>
+            
+            </div>
         </div>
 
-        <!-- 致谢 -->
-        <div class="content-section">
-            <h2>Acknowledgments</h2>
-            <p class="result-description">
-                We thank the anonymous reviewers for their valuable comments. This work is supported by the
-                National Key R&D Program of China (2022YFB3303400),
-                National Natural Science Foundation of China (62025207, 62322207),
-                Shenzhen Science and Technology Program (RCYX20210609103121030),
-                and GD Natural Science Foundation (2021B1515020085).
-            </p>
-        </div>
 
         <!-- BibTeX -->
         <div class="content-section">
             <h2>BibTeX</h2>
             <pre class="result-description">
-@article{Li-2023-AutoScan2CAD,
-    title = {Online Scene CAD Recomposition via Autonomous Scanning},
-    author = {Changhao Li, Junfu Guo, Ruizhen Hu, Ligang Liu},
-    journal = {ACM Transactions on Graphics (SIGGRAPH Asia 2023)},
-    volume = {42},
-    number = {6},
-    pages = {Article 250: 1-16},
-    year = {2023}
+@article{Li-2025,
+    title = {MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation},
+    author = {Changhao Li, Yu Xin, Xiaowei Zhou, Ariel Shamir, Hao Zhang, Ligang Liu, Ruizhen Hu},
+    journal = {SIGGRAPH 2025},
+    volume = {?},
+    number = {?},
+    pages = {Article ?: 1-?},
+    year = {2025}
 }</pre>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 MASH Project</p>
+        <p>&copy; 2025 MASH Project</p>
         <a href="https://github.com/565353780/ma-sh" class="github-link">View on GitHub</a>
     </footer>
 </body>
