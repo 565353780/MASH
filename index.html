@@ -1,362 +1,401 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-  <link rel="stylesheet" href="styles.css">
-  <title>MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script type="text/javascript">
-    google.load("jquery", "1.3.2");
-  </script>
-  <style type="text/css">
-    body {
-      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-      font-weight: 300;
-      font-size: 18px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 1100px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    h1 {
-      font-weight: 300;
-    }
+        body {
+            background: white;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    a:link {
-      text-decoration: none;
-      color: 6464FF
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    a:active {
-      text-decoration: blink
-    }
+        /* 标题样式 */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            background: white;
+            color: #333;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    a:hover {
-      text-decoration: underline;
-      color: 6464FF
-    }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
 
-    a:visited {
-      text-decoration: none;
-      color: 551A8B
-    }
-  </style>
+        .authors {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
 
+        .author-name {
+            font-weight: 500;
+            margin-right: 5px;
+        }
 
-  <!--------------------------------------------------------------------------------------------------->
-  <!--                                       Header and Photo                                       --->
-  <!--------------------------------------------------------------------------------------------------->
+        .affiliation {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
 
-<body data-gr-c-s-loaded="true">
-  <font size="3">
-    <blockquote>
-      <p>
-      </p>
-      <center>
-        <table border="0">
-          <tbody>
-            <tr>
-              <td width="30"></td>
-              <td width="1200">
-                <center>
+        sup {
+            font-size: 0.7rem;
+            vertical-align: super;
+            color: #666;
+        }
 
-                  <!--Header-->
-                  <br><br><br>
-                  <h1><span style="font-size: 25pt">MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation</span></h1>
-                  <br>
+        .abstract {
+            max-width: 1600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
 
-                  <p class="authors">
-                    <span style="font-size: 15pt">
-                      <a href="https://565353780.github.io/">Changhao Li</a><sup>1</sup>&nbsp&nbsp
-                      Yu Xin</a><sup>1</sup>&nbsp&nbsp
-                      <a href="http://staff.ustc.edu.cn/~lgliu/">Ligang Liu</a><sup>1</sup> &nbsp
-                      <a href="https://csse.szu.edu.cn/staff/ruizhenhu/">Ruizhen Hu</a><sup>2</sup> &nbsp
+        /* 内容区域 */
+        .content-section {
+            margin-bottom: 60px;
+        }
 
-                      <br><br>
-                      <sup>1</sup> <a href="http://en.ustc.edu.cn/">University of Science and Technology of China</a>
-                      &nbsp&nbsp&nbsp
-                      <sup>2</sup> <a href="https://en.szu.edu.cn/">Shenzhen University</a>
-                      &nbsp&nbsp&nbsp
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #444;
+            position: relative;
+            padding-bottom: 10px;
+        }
 
-                      <br><br>
-                      <h3 class=""><span style="font-weight: normal;"><a href="https://s2025.siggraph.org/">SIGGRAPH
-                            2025</a>, technical paper</span></h3>
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #6e8efb, #a777e3);
+            border-radius: 2px;
+        }
+
+        /* 结果图展示 */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .result-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .result-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .result-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .result-content {
+            padding: 20px;
+        }
+
+        .result-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .result-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* 视频展示 */
+        .video-container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #555;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="fade-in">
+        <div class="container">
+            <h1><span style="color: #333">MASH</span>: <span style="color: #999"><span style="color: #0078D7">M</span>asked <span style="color: #0078D7">A</span>nchored <span style="color: #0078D7">S</span>p<span style="color: #0078D7">H</span>erical</span> <span style="color: #999">Distances</span>
+            <span style="color: #999"> for 3D Shape Representation and Generation</span></h1>
+            <div class="authors">
+                <p>
+                    <span class="author-name">
+                        <a href="https://565353780.github.io/">Changhao Li</a>
+                        <sup>1</sup>
+                    </span>,
+                    <span class="author-name">
+                        Yu Xin
+                        <sup>1</sup>
+                    </span>,
+                    <span class="author-name">
+                        <a href="https://xzhou.me/">Xiaowei Zhou</a>
+                        <sup>2</sup>
+                    </span>,
+                    <span class="author-name">
+                        <a href="https://faculty.runi.ac.il/arik/site/index.asp">Ariel Shamir</a>
+                        <sup>3</sup>
+                    </span>,
+                    <span class="author-name">
+                        <a href="https://www.cs.sfu.ca/~haoz/">Hao Zhang</a>
+                        <sup>4</sup>
+                    </span>,
+                    <span class="author-name">
+                        <a href="http://staff.ustc.edu.cn/~lgliu/">Ligang Liu</a>
+                        <sup>1</sup>
+                    </span>,
+                    <span class="author-name">
+                        <a href="https://csse.szu.edu.cn/staff/ruizhenhu/">Ruizhen Hu</a>
+                        <sup>5</sup>
                     </span>
-                  <p class="authors">&nbsp;</p>
-                </center>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </center>
-      <p></p>
-
-
-      <!-- Figure 1: Overview-->
-      <br>
-      <div align="center">
-        <img src="./images/representative_image.jpg" width="880" alt="Figure 1">
-      </div>
-      <div align="justify" width: 1200px>
-        <p class="figure">
-          <strong>Figure 1:</strong> MASH represents a 3D shape by fitting a set of Masked Anchored SpHerical distance
-              functions as observed from the perspective of a fixed number of anchor points in 3D space. Left shows an
-              iterative optimization of MASH parameters, from an unoriented point cloud, leading to closer and closer
-              approximations to the ground-truth shape surface. Middle and right show the versatility of MASH in enabling
-              a variety of downstream applications including shape completion, blending, and conditional 3D generation
-              from multi-modal inputs including text prompts, point clouds, and single-view images. On the right: top
-              three results were obtained by training the generator on ShapeNet, while the bottom (the dog) result was
-              obtained on training with Objaverse.
-        </p>
-      </div>
-
-      <!--------------------------------------------------------------------------------------------------->
-      <!--                                            Abstract                                          --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <br>
-      <hr><br>
-      <div align="justify" width: 1200px>
-
-        <h1>Abstract</h1>
-
-        <span style="font-size: 13pt">
-          <!--<ul>-->
-              We introduce Masked Anchored SpHerical Distances (MASH), a novel multi-view and parametrized representation
-              of 3D shapes. Inspired by multi-view geometry and motivated by the importance of perceptual shape understanding
-              for learning 3D shapes, MASH represents a 3D shape as a collection of observable local surface patches, each
-              defined by a spherical distance function emanating from an anchor point. We further leverage the compactness
-              of spherical harmonics to encode the MASH functions, combined with a generalized view cone with a parameterized
-              base that masks the spatial extent of the spherical function to attain locality. We develop a differentiable
-              optimization algorithm capable of converting any point cloud into a MASH representation accurately approximating
-              ground-truth surfaces with arbitrary geometry and topology. Extensive experiments demonstrate that MASH is
-              versatile for multiple applications including surface reconstruction, shape generation, completion, and blending,
-              achieving superior performance thanks to its unique representation encompassing both implicit and explicit features.
-        </span>
-      </div>
-
-      <BR><BR>
-
-
-
-
-      <!--------------------------------------------------------------------------------------------------->
-      <!--                                            Download                                          --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <div align="justify">
-
-        <h1>Download [TODO]</h1>
-
-        <span style="font-size: 13pt; line-height:32px">
-          <a href="paper/2025_SIG_MASH.pdf">paper</a>(~34M) <BR>
-          <a href="paper/2025_SIG_MASH_suppl.pdf">supplementary material</a>(~21M) <BR>
-          <a href="https://github.com/565353780/ma-sh">code</a> <BR>
-          <a href="ppt/SIG25_MASH_Presentation.pdf">Slide PDF</a>(~6M) <BR>
-        </span>
-
-      </div>
-
-      <BR><BR>
-
-
-      <!-------------------------------------------- ------------------------------------------------------->
-      <!--                                             Demo                                            --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <h1>Demo </h1>
-
-      <div id="Div3" align="center">
-
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/QbqYIrmkoVo?si=xIQWj4oMH1Ke-LWP" title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
-
-      <BR><BR><BR>
-
-      <!-- Demo -->
-
-
-      <!-------------------------------------------- ------------------------------------------------------->
-      <!--                                             Fast Forward                                           --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <h1>Fast Forward </h1>
-
-      <div id="Div3" align="center">
-
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/mBPpJnWnUEY?si=keTy4e6rJSzsmNEj" title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-      </div>
-
-      <BR><BR><BR>
-
-      <!-- Fast Forward -->
-
-
-      <!-------------------------------------------- ------------------------------------------------------->
-      <!--                                             Talk                                           --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <h1>Talk </h1>
-      <span style="font-size: 13pt">
-        All the materials have been uploaded.
-        <!--<ul>-->
-      </span>
-      </div>
-
-      <BR><BR><BR>
-
-
-      <!--------------------------------------------------------------------------------------------------->
-      <!--                                            Results                                           --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <div align="justify">
-
-        <h1>Results </h1>
-
-        <BR>
-        <div align="center"><img src="./images/eval-offline-compare-000001-v6.png" width="880" alt="Figure 2"></div>
-        <p class="figure">
-          <strong>Figure 2:</strong> Qualitative comparison with offline CAD recomposition baselines, including <a
-            href="https://github.com/skanti/Scan2CAD">Scan2CAD</a>, <a
-            href="https://github.com/skanti/SceneCAD">SceneCAD</a> and <a
-            href="https://github.com/hmz-15/Interactive-Scene-Reconstruction">Interactive Scene Reconstruction</a>, with
-          either manual scans(+M) provided in the <a href="http://www.scan-net.org/">ScanNet</a> dataset or autonomous
-          scans(+A) generated by our method as input.
-        </p>
-        <BR><BR>
-
-        <div align="center"><img src="./images/eval-online-compare-065300-v5.png" width="880" alt="Figure 3"></div>
-        <p class="figure">
-          <strong>Figure 3:</strong> Qualitative comparison with online CAD recomposition baselines <a
-            href="https://cangumeli.github.io/ROCA/">ROCA</a>+RelNBV and RelCAD+<a
-            href="https://guojunfu-tech.github.io/AsyncScan/">AsyncScan</a>. In the first row, we show the fusion of all
-          captured RGBD scans with the sequence of NBVs generated by each method, where the initial view is colored in
-          blue.
-        </p>
-        <BR><BR>
-
-        <div align="center"><img src="./images/eval-visual-result-v7.png" width="880" alt="Figure 4"></div>
-        <p class="figure">
-          <strong>Figure 4:</strong> Example results generated by our online scene CAD recomposition method, with the
-          corresponding virtual scene shown on the left.
-        </p>
-        <BR><BR>
-
-      </div>
-
-      <BR>
-
-
-      <!--------------------------------------------------------------------------------------------------->
-      <!--                                        Acknowledgments                                       --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <div align="justify">
-
-        <h1>Acknowledgments </h1>
-
-        <p class="text">
-          <span style="font-size: 13pt; line-height:22px">
-            We thank the anonymous reviewers for their valuable comments. This work is supported by the
-            National Key R\&D Program of China (2022YFB3303400),
-            National Natural Science Foundation of China (62025207, 62322207),
-            Shenzhen Science and Technology Program (RCYX20210609103121030),
-            and GD Natural Science Foundation (2021B1515020085).
-          </span>
-        </p>
-      </div>
-
-      <BR><BR>
-
-
-
-      <!--------------------------------------------------------------------------------------------------->
-      <!--                                        Bibtex                                       --->
-      <!--------------------------------------------------------------------------------------------------->
-
-      <hr>
-
-      <div align="justify">
-
-        <h1>Bibtex</h1>
-        <table style="font-size: 13pt; line-height:30px" align="left">
-          <caption></caption>
-          <tr>
-            <td>@</td>
-            <td>article{</td>
-            <td></td>
-            <td> Li-2023-AutoScan2CAD,</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>title</td>
-            <td>=</td>
-            <td> {Online Scene CAD Recomposition via Autonomous Scanning},
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>author</td>
-            <td>=</td>
-            <td> {Changhao Li, Junfu Guo, Ruizhen Hu, Ligang Liu},</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>journal</td>
-            <td>=</td>
-            <td> {ACM Transactions on Graphics (SIGGRAPH Asia 2023)},</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>volume</td>
-            <td>=</td>
-            <td> {42},</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>number</td>
-            <td>=</td>
-            <td> {6},</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>pages</td>
-            <td>=</td>
-            <td> {Article 250: 1-16},</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>year</td>
-            <td>=</td>
-            <td> {2023}}</td>
-          </tr>
-        </table>
-      </div>
-
-      <BR><BR><BR><BR>
-
-
-      <!----------------------------CopyRight---------------------------->
-
-    </blockquote>
-  </font>
+                </p>
+                <p>
+                    <span class="affiliation"><sup>1</sup> University of Science and Technology of China</span>
+                    <span class="affiliation"><sup>2</sup> State Key Laboratory of CAD & CG, Zhejiang University</span>
+                    <span class="affiliation"><sup>3</sup> Reichman University</span>
+                    <span class="affiliation"><sup>4</sup> Simon Fraser University</span>
+                    <span class="affiliation"><sup>5</sup> Shenzhen University</span>
+                </p>
+            </div>
+            <!-- 将 Figure 1 移到这里 -->
+            <div align="center" style="margin-top: 30px; margin-bottom: 30px; max-width: 880px; margin-left: auto; margin-right: auto;">
+                <img src="./images/representative_image.jpg" width="100%" alt="Figure 1">
+                <p class="result-description" style="margin-top: 15px; color: #333; width: 100%;">
+                    <strong>Figure 1:</strong> MASH represents a 3D shape by fitting a set of Masked Anchored SpHerical distance
+                    functions as observed from the perspective of a fixed number of anchor points in 3D space. Left shows an
+                    iterative optimization of MASH parameters, from an unoriented point cloud, leading to closer and closer
+                    approximations to the ground-truth shape surface. Middle and right show the versatility of MASH in enabling
+                    a variety of downstream applications including shape completion, blending, and conditional 3D generation
+                    from multi-modal inputs including text prompts, point clouds, and single-view images.
+                </p>
+            </div>
+            
+            <div class="abstract">
+                <p>
+                    We introduce Masked Anchored SpHerical Distances (MASH), a novel multi-view and parametrized
+                    representation of 3D shapes. Inspired by multi-view geometry and motivated by the importance of
+                    perceptual shape understanding for learning 3D shapes, MASH represents a 3D shape as a collection of
+                    observable local surface patches, each defined by a spherical distance function emanating from an
+                    anchor point. We further leverage the compactness of spherical harmonics to encode the MASH
+                    functions, combined with a generalized view cone with a parameterized base that masks the spatial
+                    extent of the spherical function to attain locality. We develop a differentiable optimization
+                    algorithm capable of converting any point cloud into a MASH representation accurately approximating
+                    ground-truth surfaces with arbitrary geometry and topology. Extensive experiments demonstrate that
+                    MASH is versatile for multiple applications including surface reconstruction, shape generation,
+                    completion, and blending, achieving superior performance thanks to its unique representation
+                    encompassing both implicit and explicit features.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container fade-in">
+        <!-- 下载区域 -->
+        <div class="content-section">
+            <h2>Download [TODO]</h2>
+            <div class="result-content">
+                <a href="paper/2025_SIG_MASH.pdf">Paper</a> (~34M)<br>
+                <a href="paper/2025_SIG_MASH_suppl.pdf">Supplementary Material</a> (~21M)<br>
+                <a href="https://github.com/565353780/ma-sh">Code</a><br>
+                <a href="ppt/SIG25_MASH_Presentation.pdf">Slide PDF</a> (~6M)
+            </div>
+        </div>
+
+        <!-- 演示视频 -->
+        <div class="content-section">
+            <h2>Demo</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/QbqYIrmkoVo?si=xIQWj4oMH1Ke-LWP" 
+                        title="YouTube video player" 
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fast Forward -->
+        <div class="content-section">
+            <h2>Fast Forward</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/mBPpJnWnUEY?si=keTy4e6rJSzsmNEj" 
+                        title="YouTube video player" 
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="content-section">
+            <h2>Results</h2>
+            <div class="results-grid">
+                <div class="result-item">
+                    <img src="./images/eval-offline-compare-000001-v6.png" class="result-image" alt="Figure 2">
+                    <div class="result-content">
+                        <p class="result-description">
+                            <strong>Figure 2:</strong> Qualitative comparison with offline CAD recomposition baselines.
+                        </p>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <img src="./images/eval-online-compare-065300-v5.png" class="result-image" alt="Figure 3">
+                    <div class="result-content">
+                        <p class="result-description">
+                            <strong>Figure 3:</strong> Qualitative comparison with online CAD recomposition baselines.
+                        </p>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <img src="./images/eval-visual-result-v7.png" class="result-image" alt="Figure 4">
+                    <div class="result-content">
+                        <p class="result-description">
+                            <strong>Figure 4:</strong> Example results generated by our online scene CAD recomposition method.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 致谢 -->
+        <div class="content-section">
+            <h2>Acknowledgments</h2>
+            <p class="result-description">
+                We thank the anonymous reviewers for their valuable comments. This work is supported by the
+                National Key R&D Program of China (2022YFB3303400),
+                National Natural Science Foundation of China (62025207, 62322207),
+                Shenzhen Science and Technology Program (RCYX20210609103121030),
+                and GD Natural Science Foundation (2021B1515020085).
+            </p>
+        </div>
+
+        <!-- BibTeX -->
+        <div class="content-section">
+            <h2>BibTeX</h2>
+            <pre class="result-description">
+@article{Li-2023-AutoScan2CAD,
+    title = {Online Scene CAD Recomposition via Autonomous Scanning},
+    author = {Changhao Li, Junfu Guo, Ruizhen Hu, Ligang Liu},
+    journal = {ACM Transactions on Graphics (SIGGRAPH Asia 2023)},
+    volume = {42},
+    number = {6},
+    pages = {Article 250: 1-16},
+    year = {2023}
+}</pre>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 MASH Project</p>
+        <a href="https://github.com/565353780/ma-sh" class="github-link">View on GitHub</a>
+    </footer>
+</body>
 
 </html>
