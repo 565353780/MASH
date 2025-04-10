@@ -276,6 +276,40 @@
         .fade-in {
             animation: fadeIn 0.8s ease forwards;
         }
+        
+        /* BibTeX样式 */
+        .bibtex {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px 0;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            text-align: left;
+        }
+        
+        .bibtex-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #444;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: left;
+        }
+        
+        .bibtex-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #6e8efb, #a777e3);
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -520,27 +554,24 @@
             
             </div>
         </div>
-
-
-        <!-- BibTeX -->
-        <div class="content-section">
-            <h2>BibTeX</h2>
-            <pre class="result-description">
-@article{Li-2025,
-    title = {MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation},
-    author = {Changhao Li, Yu Xin, Xiaowei Zhou, Ariel Shamir, Hao Zhang, Ligang Liu, Ruizhen Hu},
-    journal = {SIGGRAPH 2025},
-    volume = {?},
-    number = {?},
-    pages = {Article ?: 1-?},
-    year = {2025}
-}</pre>
-        </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 MASH Project</p>
-        <a href="https://github.com/565353780/ma-sh" class="github-link">View on GitHub</a>
+        <div class="container">
+            <h2 class="bibtex-title">BibTeX</h2>
+            <div class="bibtex">
+                @article{Li-2025-MASH,
+                    title = {MASH: Masked Anchored SpHerical Distances for 3D Shape Representation and Generation},
+                    author = {Changhao Li, Yu Xin, Xiaowei Zhou, Ariel Shamir, Hao Zhang, Ligang Liu, Ruizhen Hu},
+                    journal = {SIGGRAPH 2025},
+                    volume = {?},
+                    number = {?},
+                    pages = {Article ?: 1-?},
+                    year = {2025}
+                }
+            </div>
+            <a href="https://github.com/565353780/MASH" class="github-link">GitHub Repository</a>
+        </div>
     </footer>
 </body>
 
