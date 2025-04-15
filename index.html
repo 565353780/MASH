@@ -397,7 +397,7 @@
                 <img src="./images/MASH_representation.png" style="max-width: 880px; width: 100%;" alt="MASH表示方法">
             </div>
             <p class="result-description" style="margin-top: 15px; color: #333;">
-                MASH is a set of anchors. Each anchor observes objects along direction <strong><em>v</em></strong> from an spatial point <strong><em>p</em></strong>. It uses spherical harmonic coefficients <strong><em>C</em></strong> to encode distance information along different directions, while utilizing trigonometric basis function coefficients <strong><em>V</em></strong> to generate a view cone that constrains the representation range of the spherical distance functions, thereby accurately representing local surface geometry of the object.
+                MASH is a compact parametric representation consisting of a collection of observations of objects from anchors. Each anchor observes objects along direction <strong><em>v</em></strong> from a spatial point <strong><em>p</em></strong>. It uses spherical harmonic coefficients <strong><em>C</em></strong> to encode distance information along different directions, while utilizing trigonometric basis function coefficients <strong><em>V</em></strong> to generate a view cone that constrains the representation range of the spherical distance functions, thereby accurately representing local surface geometry of the object.
             </p>
         </div>
 
@@ -415,7 +415,7 @@
                 </div>
                 <div style="padding: 15px;">
                     <p class="result-description">
-                        We use a differentiable way to calculate the sampled points on surface patches from MASH parameters, which enables us to optimize MASH parameters by minimizing Fitting Error, Coverage Error and Boundary-continuous Error.
+                        We use a differentiable way to calculate the sampled points on surface patches from MASH parameters, which enables us to optimize MASH parameters by minimizing Fitting Error, Coverage Error and Boundary-continuty Error.
                     </p>
                 </div>
             </div>
